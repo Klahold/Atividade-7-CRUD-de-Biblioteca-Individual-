@@ -12,15 +12,15 @@ CREATE TABLE livros (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     genero VARCHAR(30) NOT NULL,
-    ano_publicacao INT NOT NULL,
+    ano_publicacao DATE NOT NULL,
     id_autor  INT,
     FOREIGN KEY (id_autor ) REFERENCES autores(id)
 );
 
 CREATE TABLE leitores (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome INT NOT NULL,
-    email INT NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     telefone INT NOT NULL
 );
 

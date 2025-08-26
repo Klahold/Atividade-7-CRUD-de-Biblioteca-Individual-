@@ -1,19 +1,24 @@
 <?php
 
-include 'db.php';
+include '../../db.php';
 
 $id = $_GET['id'];
 
+$livros = $conn->query("SELECT id, nome FROM livros");
+$leitores = $conn->query("SELECT id, nome FROM leitores");
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $name = $_POST['name'];
-    $email = $_POST['email'];
+    $id_livro = $_POST['id_livro'];
+    $id_leitor = $_POST['id_leitor'];
+    $data_emprestimo = $_POST['data_emprestimo'];
+    $data_devolucao = $_POST['data_devolucao'];
 
-    $sql = "UPDATE usuarios SET name ='$name',email ='$email' WHERE id=$id";
+    $sql = "UPDATE emprestimos SET id_livro ='$id_livro',id_leitor ='$id_leitor',data_emprestimo ='$data_emprestimo',data_devolucao ='$data_devolucao' WHERE id=$id";
 
     if ($conn->query($sql) === true) {
         echo "Registro atualizado com sucesso.
-        <a href='read.php'>Ver registros.</a>
+        <a href='readEmprestimos.php'>Ver registros.</a>
         ";
     } else {
         echo "Erro " . $sql . '<br>' . $conn->error;
@@ -22,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit(); 
 }
 
-$sql = "SELECT * FROM usuarios WHERE id=$id";
+$sql = "SELECT * FROM emprestimos WHERE id=$id";
 $result = $conn -> query($sql);
 $row = $result -> fetch_assoc();
 
@@ -40,19 +45,25 @@ $row = $result -> fetch_assoc();
 
 <body>
 
-    <form method="POST" action="update.php?id=<?php echo $row['id'];?>">
+    <form method="POST" action="updateEmprestimos.php?id=<?php echo $row['id'];?>">
 
-        <label for="name">Nome:</label>
-        <input type="text" name="name" value="<?php echo $row['name'];?>" required>
+        <label for="id_livro">ID Livro:</label>
+        <input type="text" name="id_livro" value="<?php echo $row['id_livro'];?>" required>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" value="<?php echo $row['email'];?>" required>
+        <label for="id_leitor">ID Leitor:</label>
+        <input type="text" name="id_leitor" value="<?php echo $row['id_leitor'];?>" required>
+
+        <label for="data_emprestimo">Data Emprestimo:</label>
+        <input type="text" name="data_emprestimo" value="<?php echo $row['data_emprestimo'];?>" required>
+
+        <label for="data_devolucao">Data Devolucao:</label>
+        <input type="email" name="data_devolucao" value="<?php echo $row['data_devolucao'];?>" required>
 
         <input type="submit" value="Atualizar">
 
     </form>
 
-    <a href="read.php">Ver registros.</a>
+    <a href="readEmprestimos.php">Ver registros.</a>
 
 </body>
 

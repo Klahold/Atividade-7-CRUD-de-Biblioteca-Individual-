@@ -1,8 +1,8 @@
 <?php
 
-include 'db.php';
+include '../../db.php';
 
-$sql = "SELECT * FROM usuarios";
+$sql = "SELECT * FROM leitores";
 
 $result = $conn->query($sql);
 
@@ -13,7 +13,7 @@ if ($result->num_rows > 0) {
             <th> ID </th>
             <th> Nome </th>
             <th> Email </th>
-            <th> Data de Criação </th>
+            <th> Telefone </th>
             <th> Ações </th>
         </tr>
          ";
@@ -22,12 +22,12 @@ if ($result->num_rows > 0) {
 
         echo "<tr>
                 <td> {$row['id']} </td>
-                <td> {$row['name']} </td>
+                <td> {$row['nome']} </td>
                 <td> {$row['email']} </td>
-                <td> {$row['created_at']} </td>
+                <td> {$row['telefone']} </td>
                 <td> 
-                    <a href='update.php?id={$row['id']}'>Editar<a>
-                    <a href='delete.php?id={$row['id']}'>Excluir<a>
+                    <a href='updateLeitores.php?id={$row['id']}'>Editar<a>
+                    <a href='deleteLeitores.php?id={$row['id']}'>Excluir<a>
                 
                 </td>
               </tr>   
@@ -40,4 +40,4 @@ if ($result->num_rows > 0) {
 
 $conn -> close();
 
-echo "<a href='create.php'>Inserir novo Registro</a>";
+echo "<a href='createLeitores.php'>Inserir novo Registro</a>";

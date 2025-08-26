@@ -1,13 +1,19 @@
 <?php
 
-include 'db.php';
+include '../../db.php';
+
+$livros = $conn->query("SELECT id, titulo FROM livros");
+$leitores = $conn->query("SELECT id, nome FROM leitores");
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $name = $_POST['name'];
-    $email = $_POST['email'];
+    $id_livro = $_POST['id_livro'];
+    $id_leitor = $_POST['id_leitor'];
+    $data_emprestimo = $_POST['data_emprestimo'];
+    $data_devolucao = $_POST['data_devolucao'];
 
-    $sql = " INSERT INTO emprestimos (name,email) VALUE ('$name','$email')";
+    $sql = " INSERT INTO emprestimos (id_livro,id_leitor,data_emprestimo,data_devolucao) VALUE ('$id_livro','$id_leitor','$data_emprestimo','$data_devolucao')";
 
     if ($conn->query($sql) === true) {
         echo "Novo registro criado com sucesso.";
@@ -30,13 +36,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 
-    <form method="POST" action="create.php">
+    <form method="POST" action="createEmprestimos.php">
 
-        <label for="name">Nome:</label>
-        <input type="text" name="name" required>
+        <label for="id_livro">ID Livro:</label>
+        <input type="number" name="id_livro" required>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
+        <label for="id_leitor">ID Leitor:</label>
+        <input type="number" name="id_leitor" required>
+
+        <label for="data_emprestimo">Data Emprestimo:</label>
+        <input type="date" name="data_emprestimo" required>
+
+        <label for="data_devolucao">Data Devolucao:</label>
+        <input type="date" name="data_devolucao" required>
 
         <input type="submit" value="Adicionar">
 

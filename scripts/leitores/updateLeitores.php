@@ -1,19 +1,20 @@
 <?php
 
-include 'db.php';
+include '../../db.php';
 
 $id = $_GET['id'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $name = $_POST['name'];
+    $nome = $_POST['nome'];
     $email = $_POST['email'];
+    $telefone = $_POST['telefone'];
 
-    $sql = "UPDATE usuarios SET name ='$name',email ='$email' WHERE id=$id";
+    $sql = "UPDATE leitores SET nome ='$nome',email ='$email',telefone ='$telefone' WHERE id=$id";
 
     if ($conn->query($sql) === true) {
         echo "Registro atualizado com sucesso.
-        <a href='read.php'>Ver registros.</a>
+        <a href='readLeitores.php'>Ver registros.</a>
         ";
     } else {
         echo "Erro " . $sql . '<br>' . $conn->error;
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit(); 
 }
 
-$sql = "SELECT * FROM usuarios WHERE id=$id";
+$sql = "SELECT * FROM leitores WHERE id=$id";
 $result = $conn -> query($sql);
 $row = $result -> fetch_assoc();
 
@@ -40,19 +41,22 @@ $row = $result -> fetch_assoc();
 
 <body>
 
-    <form method="POST" action="update.php?id=<?php echo $row['id'];?>">
+    <form method="POST" action="updateLeitores.php?id=<?php echo $row['id'];?>">
 
-        <label for="name">Nome:</label>
-        <input type="text" name="name" value="<?php echo $row['name'];?>" required>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" value="<?php echo $row['nome'];?>" required>
 
         <label for="email">Email:</label>
         <input type="email" name="email" value="<?php echo $row['email'];?>" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="email" name="telefone" value="<?php echo $row['telefone'];?>" required>
 
         <input type="submit" value="Atualizar">
 
     </form>
 
-    <a href="read.php">Ver registros.</a>
+    <a href="readLeitores.php">Ver registros.</a>
 
 </body>
 
