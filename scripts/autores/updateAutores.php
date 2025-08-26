@@ -1,19 +1,20 @@
 <?php
 
-include 'db.php';
+include '../../db.php';
 
 $id = $_GET['id'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $name = $_POST['name'];
-    $email = $_POST['email'];
+    $nome = $_POST['nome'];
+    $nacionalidade = $_POST['nacionalidade'];
+    $ano_nascimento = $_POST['ano_nascimento'];
 
-    $sql = "UPDATE usuarios SET name ='$name',email ='$email' WHERE id=$id";
+    $sql = "UPDATE autores SET nome ='$nome',nacionalidade ='$nacionalidade',ano_nascimento ='$ano_nascimento' WHERE id=$id";
 
     if ($conn->query($sql) === true) {
         echo "Registro atualizado com sucesso.
-        <a href='read.php'>Ver registros.</a>
+        <a href='readAutores.php'>Ver registros.</a>
         ";
     } else {
         echo "Erro " . $sql . '<br>' . $conn->error;
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit(); 
 }
 
-$sql = "SELECT * FROM usuarios WHERE id=$id";
+$sql = "SELECT * FROM autores WHERE id=$id";
 $result = $conn -> query($sql);
 $row = $result -> fetch_assoc();
 
@@ -40,19 +41,22 @@ $row = $result -> fetch_assoc();
 
 <body>
 
-    <form method="POST" action="update.php?id=<?php echo $row['id'];?>">
+    <form method="POST" action="updateAutores.php?id=<?php echo $row['id'];?>">
 
-        <label for="name">Nome:</label>
-        <input type="text" name="name" value="<?php echo $row['name'];?>" required>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" value="<?php echo $row['nome'];?>" required>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" value="<?php echo $row['email'];?>" required>
+        <label for="nacionalidade">Nacionalidade:</label>
+        <input type="text" name="nacionalidade" value="<?php echo $row['nacionalidade'];?>" required>
+
+        <label for="ano_nascimento">Ano Nascimento:</label>
+        <input type="date" name="ano_nascimento" value="<?php echo $row['ano_nascimento'];?>" required>
 
         <input type="submit" value="Atualizar">
 
     </form>
 
-    <a href="read.php">Ver registros.</a>
+    <a href="readAutores.php">Ver registros.</a>
 
 </body>
 

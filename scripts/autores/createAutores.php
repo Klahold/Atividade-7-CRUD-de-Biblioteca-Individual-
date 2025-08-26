@@ -1,13 +1,14 @@
 <?php
 
-include 'db.php';
+include '../../db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $name = $_POST['name'];
-    $email = $_POST['email'];
+    $nome = $_POST['nome'];
+    $nacionalidade = $_POST['nacionalidade'];
+    $ano_nascimento = $_POST['ano_nascimento'];
 
-    $sql = " INSERT INTO usuarios (name,email) VALUE ('$name','$email')";
+    $sql = " INSERT INTO autores (nome,nacionalidade,ano_nascimento) VALUE ('$nome','$nacionalidade','$ano_nascimento')";
 
     if ($conn->query($sql) === true) {
         echo "Novo registro criado com sucesso.";
@@ -30,19 +31,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 
-    <form method="POST" action="create.php">
+    <form method="POST" action="createAutores.php">
 
-        <label for="name">Nome:</label>
-        <input type="text" name="name" required>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" required>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
+        <label for="nacionalidade">Nacionalidade:</label>
+        <input type="text" name="nacionalidade" required>
+
+        <label for="ano_nascimento">Ano Nascimento:</label>
+        <input type="date" name="ano_nascimento" required>
 
         <input type="submit" value="Adicionar">
 
     </form>
 
-    <a href="read.php">Ver registros.</a>
+    <a href="readAutores.php">Ver registros.</a>
 
 </body>
 
